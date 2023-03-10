@@ -55,7 +55,7 @@ def text2int_clock(textnum = str, numwords={}):
 
             #numwords[hour[i]] = (10 ** (i * 3 or 2), 0)
     current = result =  rez= 0
-
+    textnum = ' '.join(textnum)
     for word in textnum.split():
         if word not in numwords:
             raise Exception("Незаконное слово: " + word)
@@ -146,14 +146,14 @@ def clock_1(textnum = str):
                     text2int_clock(clocks, numwords={})
                     text2int_minutes(minutes, numwords={})
                     sum_time(rez_minuts, rez_clok)
-                    """
+
                 else:
                     minutes = ' '.join(textnum[0:len(textnum) - 1])
                     print('солько минут до выключения : ', minutes)
                     text2int_minutes(minutes, numwords={})
-                    """
 
 
 
-clock_1('выключи компьтер черерз полтора часа двадцать минут ')
+
+clock_1('выключи компьтер черерз двадцать минут ')
 
