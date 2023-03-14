@@ -42,11 +42,16 @@ def text2int_clock(textnum = str, numwords={}):
 
         numwords["and"] = (1, 0)
         #print(numwords)
-        for idx, word in enumerate(units):numwords[word] = (1, idx)
-        for idx, word in enumerate(units_1): numwords[word] = (1, idx)
-        for idx, word in enumerate(hour_1): numwords[word] = (1, idx)
-        for idx, word in enumerate(hour_05):numwords[word] = (1, idx*0.5)
-        for idx, word in enumerate(hour_1_5):numwords[word] = (1, idx*1.5)
+        for idx, word in enumerate(units):
+            numwords[word] = (1, idx)
+        for idx, word in enumerate(units_1):
+            numwords[word] = (1, idx)
+        for idx, word in enumerate(hour_1):
+            numwords[word] = (1, idx)
+        for idx, word in enumerate(hour_05):
+            numwords[word] = (1, idx*0.5)
+        for idx, word in enumerate(hour_1_5):
+            numwords[word] = (1, idx*1.5)
 
 
 
