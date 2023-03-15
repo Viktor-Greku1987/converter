@@ -25,10 +25,13 @@ def text2int_clock(textnum = str, numwords={}):
         units = [
             "ноль", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь",
             "девять", "десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать",
-            "шеснадцать", "семнадцать", "восемнадцать", "девятнадцать",         ]
+            "шеснадцать", "семнадцать", "восемнадцать", "девятнадцать"         ]
 
-        units_1 = [
-            "ноль", "одиу", "две", ]
+        units_n = []
+        for i in range(0, 1000):
+            units_n.append(str(i))
+
+        units_1 = ["ноль", "одиу", "две"]
 
         hour_1 = ['ноль', 'час' ]
 
@@ -43,6 +46,8 @@ def text2int_clock(textnum = str, numwords={}):
         numwords["and"] = (1, 0)
         #print(numwords)
         for idx, word in enumerate(units):
+            numwords[word] = (1, idx)
+        for idx, word in enumerate(units_n):
             numwords[word] = (1, idx)
         for idx, word in enumerate(units_1):
             numwords[word] = (1, idx)
@@ -91,9 +96,15 @@ def text2int_minutes(textnum=str, numwords={}):
             "девять", "десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать",
             "шеснадцать", "семнадцать", "восемнадцать", "девятнадцать", ]
         units_1 = [
-            "ноль", "одну", "две", "три", "четыре", "пять", "шесть", "семь", "восемь",
-            "девять", "десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать",
-            "шеснадцать", "семнадцать", "восемнадцать", "девятнадцать", ]
+            "ноль", "одну", "две",  ]
+
+        minut_05 = ['ноль', 'пол']
+
+        minut_1_5 = ["ноль", "полтора"]
+
+        units_n = []
+        for i in range(0, 1000):
+            units_n.append(str(i))
 
         tens = ["", "", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят",
                 "девяносто"]
@@ -102,11 +113,19 @@ def text2int_minutes(textnum=str, numwords={}):
         # print(numwords)
         for idx, word in enumerate(units):
             numwords[word] = (1, idx)
+
+        for idx, word in enumerate(units_n):
+            numwords[word] = (1, idx)
+
         for idx, word in enumerate(units_1):
             numwords[word] = (1, idx)
 
         for idx, word in enumerate(tens):
             numwords[word] = (1, idx * 10)
+        for idx, word in enumerate(minut_05):
+            numwords[word] = (1, idx * 0.5)
+        for idx, word in enumerate(minut_1_5):
+            numwords[word] = (1, idx * 1.5)
 
             # numwords[hour[i]] = (10 ** (i * 3 or 2), 0)
     current = result = rez = 0
@@ -122,7 +141,7 @@ def text2int_minutes(textnum=str, numwords={}):
             current = 0
 
         rez_minuts = result + current
-    print('выключение через', rez_minuts, ' минут(от фнкции определения минут)')
+    #print('выключение через', rez_minuts, ' минут(от фнкции определения минут)')
     return int(rez_minuts)
 
 def sum_time(rez_minuts, rez_clok):
@@ -133,32 +152,41 @@ def sum_time(rez_minuts, rez_clok):
 def clock_1(textnum = str):
 
     textnum = textnum.split()
-    for idx, text in enumerate(textnum):
-        if text == 'черерз':
+    for idx, text_3 in enumerate(textnum):
+        if text_3 == 'черерз':
             i = idx
             textnum = ' '.join(textnum[i+1:len(textnum)])
-            print('время до выключения: ',textnum)
+            #print('время до выключения: ',textnum)
             textnum = textnum.split()
-            print(textnum)
-            for ii, hours in enumerate(textnum):
-                if hours == 'часа' or hours == 'час':
-                    i_1 = ii
-                    clocks = ' '.join(textnum[0:i_1+1])
-                    print('солько ЧАСОВ до выключения : ', clocks)
-                    clocks =str(clocks)
-                    minutes = ' '.join(textnum[i_1+1:len(textnum)-1])
-                    print('солько минут до выключения : ', minutes)
-                    text2int_clock(clocks, numwords={})
-                    text2int_minutes(minutes, numwords={})
-                    sum_time(rez_minuts, rez_clok)
+            #print(textnum)
+            hours_2 = ['часа', 'час']
+            hours_3 = []
+            for ii, hours_1 in enumerate(textnum):
+                hours_3.append(str(hours_1))
+            #print('hours_3 = ', hours_3)
+            rez_1 =list(set(hours_3) & set(hours_2))
+            #print("rez_1 = ", rez_1)
 
-                else:
-                    minutes = ' '.join(textnum[0:len(textnum) - 1])
-                    print('солько минут до выключения : ', minutes)
-                    text2int_minutes(minutes, numwords={})
+            if rez_1 != [] :
+                for ii_1, hours_4 in enumerate(textnum):
+                    if hours_4 == 'час' or hours_4 == 'часа':
+                        i_1 = ii_1
+                        clocks = ' '.join(textnum[0:i_1+1])
+                        #print('солько ЧАСОВ до выключения : ', clocks)
+                        clocks =str(clocks)
+                        minutes = ' '.join(textnum[i_1+1:len(textnum)-1])
+                        #print('солько минут до выключения : ', minutes)
+                        text2int_clock(clocks, numwords={})
+                        text2int_minutes(minutes, numwords={})
+                        sum_time(rez_minuts, rez_clok)
+
+            else:
+                minutes = ' '.join(textnum[0:len(textnum) - 1])
+                #print('солько минут до выключения : ', minutes)
+                text2int_minutes(minutes, numwords={})
+                sum_time(rez_minuts, 0)
 
 
 
-
-clock_1('выключи компьтер черерз двадцать минут ')
+clock_1('выключи компьтер черерз 20 минут ')
 
