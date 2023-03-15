@@ -1,4 +1,6 @@
 #coding=utf8
+
+
 def text2int_clock(textnum = str, numwords={}):
 
     #print("textnum : ", textnum)
@@ -12,13 +14,13 @@ def text2int_clock(textnum = str, numwords={}):
         return rez_clok
     #print(textnum[-1])
     textnum = textnum.split()
-    print("textnum[-1] = ",textnum[-1])
+    #print("textnum[-1] = ",textnum[-1])
 
     if textnum[-1] == "часа":
 
         # отсекаем словов "часа"
         textnum = ' '.join(textnum[0:len(textnum)-1])
-        print(textnum)
+        #print(textnum)
 
 
     if not numwords:
