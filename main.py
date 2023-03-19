@@ -15,7 +15,7 @@ def clock_and_min(textnum = str):
         return rez_clok_and_min
     else:
         lst_unit = []
-        for unut in range(0,10):
+        for unut in range(0,2360):
             lst_unit.append(str(unut))
 
         textnum = ''.join(textnum)
@@ -28,7 +28,10 @@ def clock_and_min(textnum = str):
             return print('неверные данные')
         else:
             if len(check_clock_min) < 4:
-                textnum = textnum.split()
+                textnum_lst1 =[]
+                for tex_lst in textnum:
+                    textnum_lst1.append(tex_lst)
+                textnum = textnum_lst1
                 textnum_clock = ''.join(textnum[0:1])
                 textnum_minut = ''.join(textnum[1:len(textnum)])
                 textnum_clock = "0" + textnum_clock
@@ -50,7 +53,7 @@ def clock_and_min(textnum = str):
             return rez_clok_and_min
 
 
-clock_and_min( '0001')
+clock_and_min( '201')
 
 # ф-ция определения часа в который необходимо выключить ПК
 def clock_in(textnum = str, numwords={}):
