@@ -1,4 +1,57 @@
 #coding=utf8
+def clock_and_min(textnum = str):
+
+    #print("textnum : ", textnum)
+    global rez_clok_and_min
+    textnum_check = textnum.split()
+    check_off = ['сейчас']
+    rez_check_off = list(set(textnum_check) & set(check_off))
+    # выполняем проверку на наличие в выражении о времни выключения.
+    # Если нет данных, значит выклчение будет через 30 секунд.
+
+    if textnum == '' or rez_check_off != []:
+        rez_clok_and_min = '00:00' #прописать время на выключение через 30 секунд
+        print("выключение через 30 сек: ", rez_clok_and_min)
+        return rez_clok_and_min
+    else:
+        lst_unit = []
+        for unut in range(0,10):
+            lst_unit.append(str(unut))
+
+        textnum = ''.join(textnum)
+        check_clock_min = []
+        for i_check in textnum:
+            check_clock_min.append(i_check)
+        print(check_clock_min)
+        checking_correctness = list(set(lst_unit) & set(check_clock_min))
+        if checking_correctness == []:
+            return print('неверные данные')
+        else:
+            if len(check_clock_min) < 4:
+                textnum = textnum.split()
+                textnum_clock = ''.join(textnum[0:1])
+                textnum_minut = ''.join(textnum[1:len(textnum)])
+                textnum_clock = "0" + textnum_clock
+                print('час выключения', textnum_clock)
+                print('минуты выключения', textnum_minut)
+            else:
+                textnum_lst =[]
+                for i_text in textnum:
+                    textnum_lst.append(i_text)
+                textnum = textnum_lst
+
+                textnum_clock = ''.join(textnum[0:2])
+
+                textnum_minut = ''.join(textnum[2:len(textnum)])
+                print('час выключения', textnum_clock)
+                print('минуты выключения', textnum_minut)
+            rez_clok_and_min = textnum_clock +':'+ textnum_minut
+            print('время в которое выключиться ПК', rez_clok_and_min)
+            return rez_clok_and_min
+
+
+clock_and_min( '0001')
+
 # ф-ция определения часа в который необходимо выключить ПК
 def clock_in(textnum = str, numwords={}):
 
@@ -391,16 +444,5 @@ def clock_1(textnum = str):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-clock_1('выключи компьтер в 15 часов 12 минут ')
+#clock_1('выключи компьтер в 15 часов 12 минут ')
 
