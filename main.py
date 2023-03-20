@@ -1,8 +1,37 @@
 #coding=utf8
+import time
+import os
+
+# функция выключения ПК. На вход принимает время, сранивает с текущим и выключает по достижении указанного
+def off_computer(text):
+    while True:
+
+        time.sleep(10)
+
+        time_1 = time.strftime("%H:%M")
+        time_sum = []
+        for tttt in time_1:
+            time_sum.append(tttt)
+
+        time_1 = ''.join(time_sum)
+        time_1 = time_1.split()
+
+        b = text
+
+        if time_1 == b:
+            print('время выклбчения ПКЖ', b)
+            print('Текущее время ', time_1)
+            os.system('shutdown -s')
+            break
+
+#off_computer('22:03') # проверка работоспособности функции
+
+# ф-ция перобразования времени в случае задания времени четрыхначной цифрой
 def clock_and_min(textnum = str):
 
-    #print("textnum : ", textnum)
+
     global rez_clok_and_min
+
     textnum_check = textnum.split()
     check_off = ['сейчас']
     rez_check_off = list(set(textnum_check) & set(check_off))
@@ -49,13 +78,14 @@ def clock_and_min(textnum = str):
                 print('час выключения', textnum_clock)
                 print('минуты выключения', textnum_minut)
             rez_clok_and_min = textnum_clock +':'+ textnum_minut
+            rez_clok_and_min =rez_clok_and_min.split()
             print('время в которое выключиться ПК', rez_clok_and_min)
             return rez_clok_and_min
 
 
-clock_and_min( '201')
+#clock_and_min( '201') # проверка работоспособности функции
 
-# ф-ция определения часа в который необходимо выключить ПК
+# ф-ция определения ЧАСА [в] который необходимо выключить ПК
 def clock_in(textnum = str, numwords={}):
 
     #print("textnum : ", textnum)
@@ -139,8 +169,6 @@ def clock_in(textnum = str, numwords={}):
             result += current
             current = 0
 
-
-    #global rez_clok
     rez_clok_in = (result + current)
     if int(rez_clok_in) < 10:
         rez_clok_in = str(rez_clok_in)
@@ -152,8 +180,9 @@ def clock_in(textnum = str, numwords={}):
         print('выключение через в ',rez_clok_in, ' часов (от фнкции определения часа)')
         return rez_clok_in
 
-#clock_in('15 часов', numwords={})
+#clock_in('15 часов', numwords={}) # проверка работоспособности функции
 
+# ф-ция определения МИНУТ [в] который необходимо выключить ПК
 def minutes_in(textnum=str, numwords={}):
     global rez_minuts_in
     if textnum == '':
@@ -220,13 +249,16 @@ def minutes_in(textnum=str, numwords={}):
         print('выключение в', rez_minuts_in, ' минуту(ы)(от фнкции определения минут)')
         return str(rez_minuts_in)
 
-#minutes_in('5', numwords={})
+#minutes_in('5', numwords={}) # проверка работоспособности функции
 
+# ф-ция определения ЧАСА И МИНУТ [в] который необходимо выключить ПК по типу- 22:10
 def sum_time_in(rez_minuts_in, rez_clok_in):
-
+    global time_offsetting_in
     time_offsetting_in = str(rez_clok_in)+":" + str(rez_minuts_in)
+    time_offsetting_in = time_offsetting_in.split()
     print('Итогое время до выключения компьтера: ', time_offsetting_in)
 
+#ф-ция определения ЧАСОВ [ЧЕРГЕЗ] который необходимо выключить ПК
 def text2int_clock(textnum = str, numwords={}):
 
     #print("textnum : ", textnum)
@@ -312,7 +344,7 @@ def text2int_clock(textnum = str, numwords={}):
     print('выключение через',rez_clok, ' минут(от фнкции определения часа)')
     return int(rez_clok)
 
-
+#ф-ция определения МИНУТ [ЧЕРГЕЗ] который необходимо выключить ПК
 def text2int_minutes(textnum=str, numwords={}):
     global rez_minuts
     if textnum == '':
@@ -371,12 +403,14 @@ def text2int_minutes(textnum=str, numwords={}):
         rez_minuts = result + current
     #print('выключение через', rez_minuts, ' минут(от фнкции определения минут)')
     return int(rez_minuts)
-
+#ф-ция определения СУММАРНОГО количества минут от ф-ции ЧАСОВ ф-йии МИНУТ [ЧЕРГЕЗ] который необходимо выключить ПК
 def sum_time(rez_minuts, rez_clok):
 
-    time_offsetting = rez_clok + rez_minuts
+    time_offsetting = (rez_clok + rez_minuts)*60
     print('Итогое время до выключения компьтера: ', time_offsetting)
-
+    time.sleep(time_offsetting)
+    os.system('shutdown -s')
+# Функция общей логи программы
 def clock_1(textnum = str):
 
     textnum = textnum.split()
@@ -443,9 +477,16 @@ def clock_1(textnum = str):
                             clock_in(hour_h, numwords={})
                             minutes_in(minut_h, numwords={})
                             sum_time_in(rez_minuts_in, rez_clok_in)
+                            off_computer(time_offsetting_in)
+                else:
+                    textnum = ''.join(textnum)
+                    textnum = str(textnum)
+                    clock_and_min(textnum)
+                    off_computer(rez_clok_and_min)
 
 
 
 
-#clock_1('выключи компьтер в 15 часов 12 минут ')
+
+clock_1('выключи компьтер через 10 минут  ') # проверка работоспособности функции
 
